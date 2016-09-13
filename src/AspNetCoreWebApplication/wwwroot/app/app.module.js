@@ -8,7 +8,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-require('./services/rxjs-extensions');
+require('./rxjs-extensions');
 const core_1 = require('@angular/core');
 const platform_browser_1 = require('@angular/platform-browser');
 const forms_1 = require('@angular/forms');

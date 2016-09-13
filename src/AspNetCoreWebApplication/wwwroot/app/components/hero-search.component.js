@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 const core_1 = require('@angular/core');
 const router_1 = require('@angular/router');
+const Observable_1 = require('rxjs/Observable');
 const Subject_1 = require('rxjs/Subject');
 const hero_search_service_1 = require('../services/hero-search.service');
 let HeroSearchComponent = class HeroSearchComponent {
@@ -23,19 +24,17 @@ let HeroSearchComponent = class HeroSearchComponent {
         this.searchTerms.next(term);
     }
     ngOnInit() {
-        //this.heroes = this.searchTerms
-        //    .debounceTime(300)        // wait for 300ms pause in events
-        //    .distinctUntilChanged()   // ignore if next search term is same as previous
-        //    .switchMap(term => term   // switch to new observable each time
-        //        // return the http search observable
-        //        ? this.heroSearchService.search(term)
-        //        // or the observable of empty heroes if no search term
-        //        : Observable.of<Hero[]>([]))
-        //    .catch(error => {
-        //        // TODO: real error handling
-        //        console.log(error);
-        //        return Observable.of<Hero[]>([]);
-        //    });
+        this.heroes = this.searchTerms
+            .debounceTime(300) // wait for 300ms pause in events
+            .distinctUntilChanged() // ignore if next search term is same as previous
+            .switchMap(term => term // switch to new observable each time
+            ? this.heroSearchService.search(term)
+            : Observable_1.Observable.of([]))
+            .catch(error => {
+            // TODO: real error handling
+            console.log(error);
+            return Observable_1.Observable.of([]);
+        });
     }
     gotoDetail(hero) {
         let link = ['/detail', hero.id];
